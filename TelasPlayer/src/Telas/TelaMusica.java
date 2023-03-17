@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,11 @@ import javax.swing.JTextPane;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
 
 public class TelaMusica {
 
@@ -74,6 +80,19 @@ public class TelaMusica {
 		TextoMusica.setBounds(20, 63, 654, 304);
 		getFrame().getContentPane().add(TextoMusica);
 		
+		TextoMusica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+            	if(e.getKeyCode() == 27)
+        		{
+        			System.out.println("aqui");
+        			TelaPrincipal tela = new TelaPrincipal();
+        			frame.dispose();
+        			tela.getFrame().setVisible(true);
+        		}
+       
+             }
+         });
+		
 		JSpinner spinner = new JSpinner();
 		spinner.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spinner.setBackground(new Color(192, 192, 192));
@@ -91,11 +110,54 @@ public class TelaMusica {
 		spinner_1.setBounds(126, 395, 165, 21);
 		getFrame().getContentPane().add(spinner_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(".\\.\\IconPlay.png"));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(270, 503, 273, 123);
-		getFrame().getContentPane().add(lblNewLabel_1);
+		JLabel playPause = new JLabel("");
+		playPause.setIcon(new ImageIcon(".\\.\\IconPlay.png", "play"));
+		playPause.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		playPause.setBounds(436, 420, 137, 123);
+		getFrame().getContentPane().add(playPause);
+		
+		playPause.addMouseListener((MouseListener) new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if (playPause.getIcon().toString().equals("play"))
+				{
+					//inserir codigo de dar play na musica
+					playPause.setIcon(new ImageIcon(".\\.\\IconPause.png", "pause"));
+				}
+				else
+				{
+					//inserir codigo de dar pause na musica
+					playPause.setIcon(new ImageIcon(".\\.\\IconPlay.png", "play"));
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		JLabel lblNotaAtual = new JLabel("Nota Atual");
 		lblNotaAtual.setForeground(Color.WHITE);
@@ -121,51 +183,69 @@ public class TelaMusica {
 		lblVolume.setBounds(10, 516, 57, 27);
 		getFrame().getContentPane().add(lblVolume);
 		
-		JLabel DiminuiVol = new JLabel("-");
-		DiminuiVol.setForeground(Color.WHITE);
-		DiminuiVol.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		DiminuiVol.setBounds(99, 516, 19, 27);
-		getFrame().getContentPane().add(DiminuiVol);
-		
-		JLabel AumentaVol = new JLabel("+");
-		AumentaVol.setForeground(Color.WHITE);
-		AumentaVol.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		AumentaVol.setBounds(242, 503, 44, 39);
-		getFrame().getContentPane().add(AumentaVol);
-		
-		JLabel barraVol1 = new JLabel("I");
+		JLabel barraVol1 = new JLabel("|");
+		barraVol1.setHorizontalAlignment(SwingConstants.CENTER);
 		barraVol1.setForeground(Color.WHITE);
 		barraVol1.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		barraVol1.setBounds(126, 516, 19, 27);
+		barraVol1.setBounds(125, 516, 19, 27);
 		getFrame().getContentPane().add(barraVol1);
 		
-		JLabel barraVol1_1 = new JLabel("I");
-		barraVol1_1.setForeground(Color.WHITE);
-		barraVol1_1.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		barraVol1_1.setBounds(147, 516, 19, 27);
-		getFrame().getContentPane().add(barraVol1_1);
+		JLabel barraVol2 = new JLabel("|");
+		barraVol2.setForeground(Color.WHITE);
+		barraVol2.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol2.setBounds(137, 516, 19, 27);
+		getFrame().getContentPane().add(barraVol2);
 		
-		JLabel barraVol1_2 = new JLabel("I");
-		barraVol1_2.setForeground(Color.WHITE);
-		barraVol1_2.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		barraVol1_2.setBounds(168, 516, 19, 27);
-		getFrame().getContentPane().add(barraVol1_2);
+		JLabel barraVol3 = new JLabel("|");
+		barraVol3.setForeground(Color.WHITE);
+		barraVol3.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol3.setBounds(149, 516, 19, 27);
+		getFrame().getContentPane().add(barraVol3);
 		
-		JLabel barraVol1_3 = new JLabel("I");
-		barraVol1_3.setForeground(Color.WHITE);
-		barraVol1_3.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		barraVol1_3.setBounds(191, 516, 19, 27);
-		getFrame().getContentPane().add(barraVol1_3);
+		JLabel barraVol4 = new JLabel("|");
+		barraVol4.setForeground(Color.WHITE);
+		barraVol4.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol4.setBounds(161, 516, 19, 27);
+		getFrame().getContentPane().add(barraVol4);
 		
-		JLabel barraVol1_4 = new JLabel("I");
-		barraVol1_4.setForeground(Color.WHITE);
-		barraVol1_4.setFont(new Font("Tahoma", Font.PLAIN, 50));
-		barraVol1_4.setBounds(213, 516, 19, 27);
-		getFrame().getContentPane().add(barraVol1_4);
+		JLabel barraVol5 = new JLabel("|");
+		barraVol5.setForeground(Color.WHITE);
+		barraVol5.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol5.setBounds(173, 516, 19, 27);
+		getFrame().getContentPane().add(barraVol5);
+		
+		JLabel barraVol6 = new JLabel("|");
+		barraVol6.setForeground(Color.WHITE);
+		barraVol6.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol6.setBounds(185, 516, 19, 27);
+		frame.getContentPane().add(barraVol6);
+		
+		JLabel barraVol7 = new JLabel("|");
+		barraVol7.setForeground(Color.WHITE);
+		barraVol7.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		barraVol7.setBounds(197, 516, 19, 27);
+		frame.getContentPane().add(barraVol7);
+		
+		JButton buttonVolMenos = new JButton("-");
+		buttonVolMenos.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		buttonVolMenos.setBounds(70, 508, 51, 50);
+		frame.getContentPane().add(buttonVolMenos);
+		
+		JButton buttonVolMais = new JButton("+");
+		buttonVolMais.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		buttonVolMais.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		buttonVolMais.setBounds(224, 508, 50, 50);
+		frame.getContentPane().add(buttonVolMais);
 		getFrame().setBounds(100, 100, 698, 667);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	
+		
+	
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -173,4 +253,6 @@ public class TelaMusica {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+
+	
 }

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -55,11 +56,11 @@ public class TelaPrincipal implements MouseListener {
 		frame.getContentPane().setBackground(new Color(95, 95, 95));
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Seu Texto:");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(10, 26, 76, 27);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblTexto = new JLabel("Seu Texto:");
+		lblTexto.setForeground(new Color(255, 255, 255));
+		lblTexto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTexto.setBounds(10, 26, 76, 27);
+		frame.getContentPane().add(lblTexto);
 		
 		JLabel lblEscolherArquivo = new JLabel("Escolher Arquivo");
 		lblEscolherArquivo.setForeground(new Color(255, 255, 255));
@@ -146,6 +147,7 @@ public class TelaPrincipal implements MouseListener {
 		tela.getFrame().setVisible(true);
 		
 		
+		
 	}
 
 	@Override
@@ -170,5 +172,13 @@ public class TelaPrincipal implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 }
