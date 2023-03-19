@@ -3,15 +3,12 @@ package Telas;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -86,7 +83,7 @@ public class TelaMusica {
             public void keyPressed(KeyEvent e) {
             	if(e.getKeyCode() == 27)
         		{
-        			System.out.println("aqui");
+    
         			TelaPrincipal tela = new TelaPrincipal();
         			frame.dispose();
         			tela.getFrame().setVisible(true);
@@ -94,15 +91,6 @@ public class TelaMusica {
        
              }
          });
-		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setToolTipText("Digite um valor maior que 0 e menor que 1000");
-		spinner_1.setModel(new SpinnerNumberModel(0, 0, 1000, 5));
-		spinner_1.setForeground(Color.WHITE);
-		spinner_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinner_1.setBackground(Color.LIGHT_GRAY);
-		spinner_1.setBounds(126, 395, 165, 21);
-		getFrame().getContentPane().add(spinner_1);
 		
 		JLabel playPause = new JLabel("");
 		playPause.setIcon(new ImageIcon(".\\.\\IconPlay.png", "play"));
@@ -165,11 +153,11 @@ public class TelaMusica {
 		lblPressioneEscPara.setBounds(486, 593, 198, 27);
 		getFrame().getContentPane().add(lblPressioneEscPara);
 		
-		JLabel DisplayNota = new JLabel("Nota");
-		DisplayNota.setForeground(Color.WHITE);
-		DisplayNota.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		DisplayNota.setBounds(126, 466, 137, 27);
-		getFrame().getContentPane().add(DisplayNota);
+		JLabel notaAtual = new JLabel("Nota");
+		notaAtual.setForeground(Color.WHITE);
+		notaAtual.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		notaAtual.setBounds(126, 466, 137, 27);
+		getFrame().getContentPane().add(notaAtual);
 		
 		JLabel lblVolume = new JLabel("Volume");
 		lblVolume.setForeground(Color.WHITE);
@@ -234,11 +222,17 @@ public class TelaMusica {
 		buttonVolMais.setBounds(224, 508, 50, 50);
 		frame.getContentPane().add(buttonVolMais);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Guitarra", "Violao", "Piano"}));
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setBounds(125, 435, 165, 21);
-		frame.getContentPane().add(comboBox);
+		JLabel bpmAtual = new JLabel("bpmAtual");
+		bpmAtual.setForeground(new Color(255, 255, 255));
+		bpmAtual.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		bpmAtual.setBounds(126, 401, 164, 13);
+		frame.getContentPane().add(bpmAtual);
+		
+		JLabel instrumentoAtual = new JLabel("instrumentoAtual");
+		instrumentoAtual.setForeground(Color.WHITE);
+		instrumentoAtual.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		instrumentoAtual.setBounds(126, 438, 164, 13);
+		frame.getContentPane().add(instrumentoAtual);
 		getFrame().setBounds(100, 100, 698, 667);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -253,6 +247,4 @@ public class TelaMusica {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-
-	
 }

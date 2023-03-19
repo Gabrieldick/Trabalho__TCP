@@ -1,28 +1,23 @@
 package Telas;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.event.*;
 import javax.swing.JFrame;
 import java.awt.Color;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.JTextArea;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultComboBoxModel; 	
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
@@ -99,7 +94,19 @@ public class TelaPrincipal implements MouseListener {
 		        
 		        if(abriu == JFileChooser.APPROVE_OPTION)
 		        {
-		        	System.out.println(selecionaArq.getSelectedFile().getAbsolutePath());
+		        	String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
+		        	try {
+		        	      File arquivo = new File(caminho);
+		        	      Scanner leitor = new Scanner(arquivo);
+		        	      while (leitor.hasNextLine()) {
+		        	        String data = leitor.nextLine();
+		        	        System.out.println(data);
+		        	      }
+		        	      leitor.close();
+		        	    } catch (FileNotFoundException excecao) {
+		        	      System.out.println("Erro ao abrir o arquivo");
+		        	      excecao.printStackTrace();
+		        	    }
 		        }
 		    }
 		    
@@ -113,6 +120,38 @@ public class TelaPrincipal implements MouseListener {
 		TextoMusica.setForeground(new Color(255, 255, 255));
 		TextoMusica.setBounds(20, 63, 512, 304);
 		frame.getContentPane().add(TextoMusica);
+		
+		
+		SelectArquivo.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        JFileChooser selecionaArq = new JFileChooser();
+		        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Selecione um arquivo de texto", "txt");
+		        selecionaArq.setFileFilter(filtro);
+		        int abriu = selecionaArq.showOpenDialog(null);
+		        
+		        if(abriu == JFileChooser.APPROVE_OPTION)
+		        {
+		        	String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
+		        	try {
+		        	      File arquivo = new File(caminho);
+		        	      Scanner leitor = new Scanner(arquivo);
+		        	      while (leitor.hasNextLine()) {
+		        	        String data = leitor.nextLine();
+		        	        System.out.println(data);
+		        	        TextoMusica.setText(data);
+		        	      }
+		        	      leitor.close();
+		        	    } catch (FileNotFoundException excecao) {
+		        	      System.out.println("Erro ao abrir o arquivo");
+		        	      excecao.printStackTrace();
+		        	    }
+		        }
+		    }
+		    
+		});
+		
 		
 		JSpinner SelectBPM = new JSpinner();
 		SelectBPM.setToolTipText("Digite um valor maior que 0 e menor que 1000");
