@@ -1,14 +1,6 @@
 import org.jfugue.player.Player;
 
 public class identificaCaractere {
-    //CONSTANTES
-    private static final int numIntstrumentos = 127;
-    private static final int OitavaInicial = 5;
-    private static final int maxOitavas = 9;
-    private static final int maxVolume = 127;
-    private static final int minVolume = 0;
-    private static final int volumePadrao = 40;
-    private static final int ID_Instrumento_Padrao = 0;
     //CONSTANTES DO TOCADOR
     private static final int InstrumentoAgogo = 114;
     private static final int InstrumentoHarpsichord = 7;
@@ -17,10 +9,8 @@ public class identificaCaractere {
     private static final int InstrumentoChurchOrgan = 20;
     private static final String pausa = "R ";
     //VARIAVEIS DE CONTROLE DA MUSICA
-    private int OitavaAtual;
-    private int ID_Instrumento;
     private String LastNote;
-    private int volume;
+    private ControlaSom configSom = new ControlaSom();
     //VARIAVEIS PROVENIENTES DO TEXTO
     private char Caractere;
     private String texto;
@@ -33,9 +23,6 @@ public class identificaCaractere {
     public identificaCaractere(String texto) {
         //INTEIROS
         i = 0;
-        ID_Instrumento = ID_Instrumento_Padrao;
-        OitavaAtual = OitavaInicial;
-        volume = volumePadrao;
         //CHAR
         Caractere = '\0';
         //STRING
@@ -48,13 +35,21 @@ public class identificaCaractere {
     //FUNCAO QUE INICIALIZA OS PADROES DA MUSICA
     private String inicializaMusica(){
         String musica = "";
-        musica = musica.concat(AlteraVolume(volumePadrao));
-        musica = musica.concat(AlteraInstrumento(ID_Instrumento_Padrao));
+        configSom.volumeToVolumePadrao();
+        musica = musica.concat(configSom.VolumeToString());
+        configSom.setInstrumentoPadrao();
+        musica = musica.concat(configSom.InstrumentoToString());
         return musica;
     }
 
     public static void main(String[] args){
-        identificaCaractere ID = new identificaCaractere("");
+        //identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD0aCGFE0aEE0aCDEF0aFF");
+    	//identificaCaractere ID = new identificaCaractere("CD EFFF FFF");
+    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD!aCGFE0aEE0aCDEF0aFF");
+    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCDpaDDOaCGFE0aEE0aCDEF0aFF");
+    	identificaCaractere ID = new identificaCaractere("CDEF0aFF0a?CDCD0aDD4aCGFE0aEE0aCDEF0aFF");
+    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD;aCGFE0aEE0aCDEF0aFF");
+    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD,aCGFE0aEE0aCDEF0aFF");
         Player player = new Player();
 
         ID.musica = ID.geraStringMusica(ID.texto);
@@ -73,8 +68,9 @@ public class identificaCaractere {
             Caractere = texto.toLowerCase().charAt(i);
             // Verifica se é um digito
             if(Character.isDigit(Caractere)){
-                ID_Instrumento = VerificaInstrumento(ID_Instrumento + Character.getNumericValue(Caractere));
-                musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+            	int charNum = Character.getNumericValue(Caractere);
+            	configSom.AlteraInstrumento(configSom.getID_Instrumento() + charNum);
+            	musica = musica.concat(configSom.InstrumentoToString());
             }
             else{
                 switch (Caractere) {
@@ -82,11 +78,11 @@ public class identificaCaractere {
                     case 'a':
                         //VERIFICA SE É MAIUSCULA
                         if(texto.charAt(i) == 'A'){
-                            LastNote = geraStringNota('A', OitavaAtual);
+                            LastNote = geraStringNota('A');
                             musica = musica.concat(LastNote);
                         }
                         else{
-                            if (lastCharisNote(musica)){
+                            if (previousCharisNote(i)){
                                 musica = musica.concat(LastNote);   
                             }
                             else{
@@ -98,11 +94,11 @@ public class identificaCaractere {
                     case 'b':
                         //VERIFICA SE É MAIUSCULA
                         if(texto.charAt(i) == 'B'){
-                            LastNote = geraStringNota('B', OitavaAtual);
+                            LastNote = geraStringNota('B');
                             musica = musica.concat(LastNote);
                         }
                         else{
-                            if (lastCharisNote(musica)){
+                            if (previousCharisNote(i)){
                                 musica = musica.concat(LastNote); 
                             }
                             else{
@@ -114,11 +110,11 @@ public class identificaCaractere {
                     case 'c':
                     //VERIFICA SE É MAIUSCULA
                     if(texto.charAt(i) == 'C'){
-                        LastNote = geraStringNota('C', OitavaAtual);
+                        LastNote = geraStringNota('C');
                         musica = musica.concat(LastNote);
                     }
                     else{
-                        if (lastCharisNote(musica)){
+                        if (previousCharisNote(i)){
                             musica = musica.concat(LastNote);   
                         }
                         else{
@@ -130,11 +126,11 @@ public class identificaCaractere {
                     case 'd':
                         //VERIFICA SE É MAIUSCULA
                         if(texto.charAt(i) == 'D'){
-                            LastNote = geraStringNota('D', OitavaAtual);
+                            LastNote = geraStringNota('D');
                             musica = musica.concat(LastNote);
                         }
                         else{
-                            if (lastCharisNote(musica)){
+                            if (previousCharisNote(i)){
                                 musica = musica.concat(LastNote);   
                             }
                             else{
@@ -146,11 +142,11 @@ public class identificaCaractere {
                     case 'e':
                     //VERIFICA SE É MAIUSCULA
                     if(texto.charAt(i) == 'E'){
-                        LastNote = geraStringNota('E', OitavaAtual);
+                        LastNote = geraStringNota('E');
                         musica = musica.concat(LastNote);
                     }
                     else{
-                        if (lastCharisNote(musica)){
+                        if (previousCharisNote(i)){
                             musica = musica.concat(LastNote);  
                         }
                         else{
@@ -162,11 +158,11 @@ public class identificaCaractere {
                     case 'f':
                         //VERIFICA SE É MAIUSCULA
                         if(texto.charAt(i) == 'F'){
-                            LastNote = geraStringNota('F', OitavaAtual);
+                            LastNote = geraStringNota('F');
                             musica = musica.concat(LastNote);
                         }
                         else{
-                            if (lastCharisNote(musica)){
+                            if (previousCharisNote(i)){
                                 musica = musica.concat(LastNote);  
                             }
                             else{
@@ -178,11 +174,11 @@ public class identificaCaractere {
                     case 'g':
                         //VERIFICA SE É MAIUSCULA
                         if(texto.charAt(i) == 'G'){
-                            LastNote = geraStringNota('G', OitavaAtual);
+                            LastNote = geraStringNota('G');
                             musica = musica.concat(LastNote);
                         }
                         else{
-                            if (lastCharisNote(musica)){
+                            if (previousCharisNote(i)){
                                 //REPETE ULITMA NOTA
                                 musica = musica.concat(LastNote);   
                             }
@@ -194,44 +190,44 @@ public class identificaCaractere {
                         break;
                     // DOBRA O VOLUME
                     case ' ':
-                        volume = DobraVolume(volume);
-                        musica = musica.concat(AlteraVolume(volume));
+                        configSom.DobraVolume();
+                        musica = musica.concat(configSom.VolumeToString());
                         break;
                     // TROCA O INSTRUMENTO PARA AGOGO
                     case '!':
-                        ID_Instrumento = InstrumentoAgogo;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoAgogo);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     // OUTRAS VOGAIS - TROCAM O INSTRUMENTO PARA HARPSICHORD
                     case 'i':
-                        ID_Instrumento = InstrumentoHarpsichord;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoHarpsichord);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     case 'o':
-                        ID_Instrumento = InstrumentoHarpsichord;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoHarpsichord);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     case 'u':
-                        ID_Instrumento = InstrumentoHarpsichord;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoHarpsichord);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     //GERA NOTA ALEATORIA
                     case '?':
-                        OitavaAtual = AlteraOitava(OitavaAtual);
+                        configSom.AlteraOitava();
                         break;
                     //TROCA PARA INSTRUMENTO GERADO ALEATORIAMENTE
                     case '\n':
-                        ID_Instrumento = InstrumentoTubularBells;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoTubularBells);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     //ATRIBUI VALOR ALEATORIO AO BPM
                     case ';':
-                        ID_Instrumento = InstrumentoPanFlute;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoPanFlute);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     case ',':
-                        ID_Instrumento = InstrumentoChurchOrgan;
-                        musica = musica.concat(AlteraInstrumento(ID_Instrumento));
+                    	configSom.AlteraInstrumento(InstrumentoChurchOrgan);
+                        musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     default:
                         if (lastCharisNote(musica)){
@@ -249,16 +245,6 @@ public class identificaCaractere {
         return musica;
     }
 
-    //METOTO QUE ALTERA AS OITAVAS
-    private int AlteraOitava(int OitavaAtual){
-        if((OitavaAtual+1) > maxOitavas){
-            OitavaAtual = OitavaInicial;
-        }
-        else{
-            OitavaAtual++;
-        }
-        return OitavaAtual;
-    }
 
     private boolean lastCharisNote(String musica){
         //PEGA O ULTIMO CARACTERE DA MUSICA
@@ -270,43 +256,27 @@ public class identificaCaractere {
             return false;
         }
     }
-
-    //METODO PARA VERIFICAR O VOLUME
-    private int DobraVolume(int volume){
-        volume *= 2;
-        //VERFICA SE CHEGOU NO MAXIMO OU NO MINIMO
-        if(volume > maxVolume){
-            volume = volumePadrao;
+    
+    private boolean previousCharisNote(int posAtual) {
+    	//PEGA O ULTIMO CARACTERE DA MUSICA
+    	int pos = posAtual-1;
+    	if(pos<0) {
+    		pos = 0;
+    	}
+        char last = texto.charAt(pos);
+        if(last == 'A' || last == 'B' || last == 'C' || last == 'D' || last == 'E' || last == 'F' || last == 'G'){
+            return true;
         }
-        else if(volume < minVolume){
-            volume = volumePadrao;
+        else{
+            return false;
         }
-        return volume;
-    }
-
-    //METODO PARA ALTERAR O VOLUME
-    private String AlteraVolume(int volume){
-        String newVolume = ":CON(7, " + Integer.toString(volume) + ") ";
-        return newVolume;
     }
 
-    private int VerificaInstrumento(int ID_Instrumento){
-        if(ID_Instrumento > numIntstrumentos){
-            ID_Instrumento = ID_Instrumento_Padrao;
-        }
-        return ID_Instrumento;
-    }
-    //METODO QUE ALTERA O INSTRUMENTO
-    private String AlteraInstrumento(int ID_Instrumento){
-        //MONTA STRING PARA CONCATENAR
-        String novoInstrumento ="I"+Integer.toString(ID_Instrumento)+ " ";
-        return novoInstrumento;
-    }
 
     //METODO QUE MONTA A STRING DA NOTA PARA SER CONCATENADA
-    private String geraStringNota(char nota,int OitavaAtual){
+    private String geraStringNota(char nota){
         String notaString = "";
-        notaString = nota+Integer.toString(OitavaAtual)+ " ";
+        notaString = nota+Integer.toString(configSom.getOitavaAtual())+ " ";
 
         return notaString;
     }
