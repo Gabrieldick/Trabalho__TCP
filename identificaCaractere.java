@@ -230,7 +230,7 @@ public class identificaCaractere {
                         musica = musica.concat(configSom.InstrumentoToString());
                         break;
                     default:
-                        if (lastCharisNote(musica)){
+                        if (previousCharisNote(i)){
                             //REPETE ULITMA NOTA
                             musica = musica.concat(LastNote);   
                         }
@@ -243,18 +243,6 @@ public class identificaCaractere {
             }
         }
         return musica;
-    }
-
-
-    private boolean lastCharisNote(String musica){
-        //PEGA O ULTIMO CARACTERE DA MUSICA
-        char last = musica.charAt(musica.length() - 3);
-        if(last == 'A' || last == 'B' || last == 'C' || last == 'D' || last == 'E' || last == 'F' || last == 'G'){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
     
     private boolean previousCharisNote(int posAtual) {
