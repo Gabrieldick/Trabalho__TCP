@@ -20,6 +20,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
@@ -111,14 +114,6 @@ public class TelaPrincipal implements MouseListener {
 		TextoMusica.setBounds(20, 63, 512, 304);
 		frame.getContentPane().add(TextoMusica);
 		
-		JSpinner SelectInstrumento = new JSpinner();
-		SelectInstrumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		SelectInstrumento.setBackground(new Color(192, 192, 192));
-		SelectInstrumento.setForeground(new Color(255, 255, 255));
-		SelectInstrumento.setModel(new SpinnerListModel(new String[] {"Guitarra", "Violao", "Violino", "Piano", "Flauta"}));
-		SelectInstrumento.setBounds(126, 466, 165, 21);
-		frame.getContentPane().add(SelectInstrumento);
-		
 		JSpinner SelectBPM = new JSpinner();
 		SelectBPM.setToolTipText("Digite um valor maior que 0 e menor que 1000");
 		SelectBPM.setModel(new SpinnerNumberModel(0, 0, 1000, 5));
@@ -133,6 +128,12 @@ public class TelaPrincipal implements MouseListener {
 		IniciaMusica.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		IniciaMusica.setBounds(265, 497, 137, 123);
 		frame.getContentPane().add(IniciaMusica);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Guitarra", "Violao", "Piano"}));
+		comboBox.setBounds(126, 468, 165, 21);
+		frame.getContentPane().add(comboBox);
 		frame.setBounds(100, 100, 698, 667);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
