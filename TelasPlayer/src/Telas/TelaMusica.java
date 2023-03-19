@@ -19,6 +19,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaMusica {
 
@@ -92,14 +94,6 @@ public class TelaMusica {
        
              }
          });
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinner.setBackground(new Color(192, 192, 192));
-		spinner.setForeground(new Color(255, 255, 255));
-		spinner.setModel(new SpinnerListModel(new String[] {"Guitarra", "Violao", "Violino", "Piano", "Flauta"}));
-		spinner.setBounds(126, 429, 165, 21);
-		getFrame().getContentPane().add(spinner);
 		
 		JSpinner spinner_1 = new JSpinner();
 		spinner_1.setToolTipText("Digite um valor maior que 0 e menor que 1000");
@@ -239,6 +233,12 @@ public class TelaMusica {
 		buttonVolMais.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		buttonVolMais.setBounds(224, 508, 50, 50);
 		frame.getContentPane().add(buttonVolMais);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Guitarra", "Violao", "Piano"}));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBox.setBounds(125, 435, 165, 21);
+		frame.getContentPane().add(comboBox);
 		getFrame().setBounds(100, 100, 698, 667);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
