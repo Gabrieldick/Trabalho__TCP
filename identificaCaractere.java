@@ -1,5 +1,3 @@
-import org.jfugue.player.Player;
-
 public class identificaCaractere {
     //CONSTANTES DO TOCADOR
     private static final int InstrumentoAgogo = 114;
@@ -42,24 +40,7 @@ public class identificaCaractere {
         return musica;
     }
 
-    public static void main(String[] args){
-        //identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD0aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CD EFFF FFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD!aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCDpaDDOaCGFE0aEE0aCDEF0aFF");
-    	identificaCaractere ID = new identificaCaractere("CDEF0aFF0a?CDCD0aDD4aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD;aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD,aCGFE0aEE0aCDEF0aFF");
-        Player player = new Player();
-
-        ID.musica = ID.geraStringMusica(ID.texto);
-        System.out.println(ID.musica);
-
-        player.play(ID.musica);
-
-    }
-
-    public String geraStringMusica(String texto) {
+    public String geraStringMusica() {
 
         String musica = inicializaMusica();
 
@@ -267,5 +248,13 @@ public class identificaCaractere {
         notaString = nota+Integer.toString(configSom.getOitavaAtual())+ " ";
 
         return notaString;
+    }
+
+    public void setMusica(String musica){
+        this.musica = musica;
+    }
+
+    public String getMusica(){
+        return this.musica;
     }
 }

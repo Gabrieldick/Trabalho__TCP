@@ -14,9 +14,8 @@ public class Leitura
         dados = ""; 
     }
 
-    private static String GetFile(String nomeArquivo){
-        String diretorio = System.getProperty("user.dir").concat("\\");
-        
+    private static String GetFile(String nomeArquivo, String diretorio){
+       
         diretorio = diretorio.concat(nomeArquivo);
 
         return diretorio;
@@ -36,25 +35,26 @@ public class Leitura
         }
     }
 
-    public static void setFileName(){
+    public void setFileName(){
         try (Scanner ler_nome = new Scanner(System.in)) {
             System.out.println("Digite o nome do arquivo\n");
             nomeArquivo = ler_nome.nextLine();
         }
     }
-    public static void setDados(String diretorio) throws FileNotFoundException{
-        dados = ReadFile(diretorio);
+    public void setDados(String diretorio, String nomeArquivo) throws FileNotFoundException{
+        String path = GetFile(nomeArquivo, diretorio);
+        dados = ReadFile(path);
     }
-    public static void setDirectory(){
-        diretorio = GetFile(nomeArquivo);
+    public void setDirectory(){
+        diretorio = System.getProperty("user.dir").concat("\\");
     }
-    public static String getFileName(){
+    public String getFileName(){
         return nomeArquivo;
     }
-    public static String getDados(){
+    public String getDados(){
         return dados;
     }
-    public static String getDirectory(){
+    public String getDirectory(){
         return diretorio;
     }
 }  

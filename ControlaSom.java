@@ -1,4 +1,3 @@
-
 public class ControlaSom {
     private static final int numIntstrumentos = 127;
     private static final int maxVolume = 127;
@@ -84,8 +83,5 @@ public class ControlaSom {
             OitavaAtual++;
         }
         return OitavaAtual;
-    }
-
-    
-    
+    }   
 }
