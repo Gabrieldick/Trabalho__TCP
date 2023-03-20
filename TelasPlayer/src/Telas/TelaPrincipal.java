@@ -1,8 +1,12 @@
 package Telas;
 
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
+import org.jfugue.player.Player;
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.awt.event.*;
 import javax.swing.JFrame;
@@ -12,6 +16,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Func_musica.identificaCaractere;
+
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -21,6 +28,7 @@ import javax.swing.DefaultComboBoxModel;
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
+	private JTextPane TextoMusica = new JTextPane();
 	
 	final JFileChooser fc = new JFileChooser();
 	/**
@@ -114,7 +122,7 @@ public class TelaPrincipal implements MouseListener {
 		
 		
 		
-		JTextPane TextoMusica = new JTextPane();
+		
 		TextoMusica.setToolTipText("Digite seu texto aqui...");
 		TextoMusica.setBackground(new Color(192, 192, 192));
 		TextoMusica.setForeground(new Color(255, 255, 255));
@@ -163,7 +171,7 @@ public class TelaPrincipal implements MouseListener {
 		frame.getContentPane().add(SelectBPM);
 		
 		JLabel IniciaMusica = new JLabel("");
-		IniciaMusica.setIcon(new ImageIcon(".\\.\\IconPlay.png"));
+		IniciaMusica.setIcon(new ImageIcon(".\\TelasPlayer\\IconPlay.png"));
 		IniciaMusica.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		IniciaMusica.setBounds(265, 497, 137, 123);
 		frame.getContentPane().add(IniciaMusica);
@@ -182,12 +190,12 @@ public class TelaPrincipal implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		TelaMusica tela = new TelaMusica();
+		identificaCaractere id = new identificaCaractere(TextoMusica.getText());
+		id.setMusica(id.geraStringMusica());
+		Pattern music = new Pattern(id.getMusica());
+		Player player = new Player();
+		player.play(music);
 		this.frame.dispose();
-		tela.getFrame().setVisible(true);
-		
-		
-		
 	}
 
 	@Override
@@ -221,4 +229,13 @@ public class TelaPrincipal implements MouseListener {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+	
+	private static void ExportaMIDI(Pattern music, String nome){
+        File arquivoMIDI = new File(nome+"_output.mid");
+        try {
+            MidiFileManager.savePatternToMidi(music, arquivoMIDI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

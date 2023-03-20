@@ -157,6 +157,7 @@ public class TelaMusica {
 		notaAtual.setForeground(Color.WHITE);
 		notaAtual.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		notaAtual.setBounds(126, 466, 137, 27);
+		notaAtual.setText("25");
 		getFrame().getContentPane().add(notaAtual);
 		
 		JLabel lblVolume = new JLabel("Volume");
