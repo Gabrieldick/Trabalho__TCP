@@ -69,63 +69,23 @@ public class TelaPrincipal implements MouseListener {
 		lblTexto.setBounds(10, 26, 76, 27);
 		frame.getContentPane().add(lblTexto);
 		
-		JLabel lblEscolherArquivo = new JLabel("Escolher Arquivo");
-		lblEscolherArquivo.setForeground(new Color(255, 255, 255));
-		lblEscolherArquivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEscolherArquivo.setBounds(10, 389, 137, 27);
-		frame.getContentPane().add(lblEscolherArquivo);
-		
-		JLabel lblBpm = new JLabel("BPM");
-		lblBpm.setForeground(Color.WHITE);
-		lblBpm.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBpm.setBounds(10, 426, 137, 27);
-		frame.getContentPane().add(lblBpm);
-		
-		JLabel lblInstrumento = new JLabel("Instrumento");
-		lblInstrumento.setForeground(Color.WHITE);
-		lblInstrumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInstrumento.setBounds(10, 463, 137, 27);
-		frame.getContentPane().add(lblInstrumento);
-
-		JButton SelectArquivo = new JButton("Procurar Arquivo");
-		SelectArquivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		SelectArquivo.setBounds(126, 392, 165, 21);
-		frame.getContentPane().add(SelectArquivo);
-		
-		
-		JLabel lblExportaMidi = new JLabel("Exportar Arquivo");
-		lblExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblExportaMidi.setForeground(Color.WHITE);
-		lblExportaMidi.setBounds(10, 507, 165, 21);
-		frame.getContentPane().add(lblExportaMidi);
-		
-		
-		JButton btnExportaMidi = new JButton("Exportar Midi");
-		btnExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnExportaMidi.setBounds(126, 507, 165, 21);
-		frame.getContentPane().add(btnExportaMidi);
-		
-		btnExportaMidi.addActionListener(new ActionListener() {
-
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		    	musica.SetText(TextoMusica.getText());
-		    	
-		    	try {
-					musica.ExportaMIDI(nomeArquivo);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		    }
-		});
-		
 		TextoMusica.setToolTipText("Digite seu texto aqui...");
 		TextoMusica.setBackground(new Color(192, 192, 192));
 		TextoMusica.setForeground(new Color(255, 255, 255));
 		TextoMusica.setBounds(20, 63, 512, 304);
 		frame.getContentPane().add(TextoMusica);
 		
+		JLabel lblEscolherArquivo = new JLabel("Escolher Arquivo");
+		lblEscolherArquivo.setForeground(new Color(255, 255, 255));
+		lblEscolherArquivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEscolherArquivo.setBounds(10, 389, 137, 27);
+		frame.getContentPane().add(lblEscolherArquivo);
+
+		
+		JButton SelectArquivo = new JButton("Procurar Arquivo");
+		SelectArquivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		SelectArquivo.setBounds(126, 392, 165, 21);
+		frame.getContentPane().add(SelectArquivo);
 		
 		SelectArquivo.addActionListener(new ActionListener() {
 
@@ -158,28 +118,40 @@ public class TelaPrincipal implements MouseListener {
 		    
 		});
 		
+		JLabel lblExportaMidi = new JLabel("Exportar Arquivo");
+		lblExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExportaMidi.setForeground(Color.WHITE);
+		lblExportaMidi.setBounds(10, 442, 165, 21);
+		frame.getContentPane().add(lblExportaMidi);
 		
-		JSpinner SelectBPM = new JSpinner();
-		SelectBPM.setToolTipText("Digite um valor maior que 0 e menor que 1000");
-		SelectBPM.setModel(new SpinnerNumberModel(0, 0, 1000, 5));
-		SelectBPM.setForeground(Color.WHITE);
-		SelectBPM.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		SelectBPM.setBackground(Color.LIGHT_GRAY);
-		SelectBPM.setBounds(126, 429, 165, 21);
-		frame.getContentPane().add(SelectBPM);
+		
+		JButton btnExportaMidi = new JButton("Exportar Midi");
+		btnExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnExportaMidi.setBounds(126, 442, 165, 21);
+		frame.getContentPane().add(btnExportaMidi);
+		
+		btnExportaMidi.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	musica.SetText(TextoMusica.getText());
+		    	
+		    	try {
+					musica.ExportaMIDI(nomeArquivo);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    }
+		});
 		
 		JLabel IniciaMusica = new JLabel("");
 		IniciaMusica.setIcon(new ImageIcon(".\\TelasPlayer\\IconPlay.png"));
 		IniciaMusica.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		IniciaMusica.setBounds(285, 540, 137, 123);
+		IniciaMusica.setBounds(217, 492, 137, 123);
 		frame.getContentPane().add(IniciaMusica);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Guitarra", "Violao", "Piano"}));
-		comboBox.setBounds(126, 468, 165, 21);
-		frame.getContentPane().add(comboBox);
-		frame.setBounds(100, 100, 698, 667);
+		frame.setBounds(100, 100, 570, 667);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		IniciaMusica.addMouseListener(this);
