@@ -85,43 +85,33 @@ public class TelaPrincipal implements MouseListener {
 		lblInstrumento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblInstrumento.setBounds(10, 463, 137, 27);
 		frame.getContentPane().add(lblInstrumento);
-		
+
 		JButton SelectArquivo = new JButton("Procurar Arquivo");
 		SelectArquivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		SelectArquivo.setBounds(126, 392, 165, 21);
 		frame.getContentPane().add(SelectArquivo);
 		
-		SelectArquivo.addActionListener(new ActionListener() {
+		
+		JLabel lblExportaMidi = new JLabel("Exportar Arquivo");
+		lblExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExportaMidi.setForeground(Color.WHITE);
+		lblExportaMidi.setBounds(10, 507, 165, 21);
+		frame.getContentPane().add(lblExportaMidi);
+		
+		
+		JButton btnExportaMidi = new JButton("Exportar Midi");
+		btnExportaMidi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnExportaMidi.setBounds(126, 507, 165, 21);
+		frame.getContentPane().add(btnExportaMidi);
+		
+		btnExportaMidi.addActionListener(new ActionListener() {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        JFileChooser selecionaArq = new JFileChooser();
-		        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Selecione um arquivo de texto", "txt");
-		        selecionaArq.setFileFilter(filtro);
-		        int abriu = selecionaArq.showOpenDialog(null);
-		        
-		        if(abriu == JFileChooser.APPROVE_OPTION)
-		        {
-		        	String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
-		        	try {
-		        	      File arquivo = new File(caminho);
-		        	      Scanner leitor = new Scanner(arquivo);
-		        	      while (leitor.hasNextLine()) {
-		        	        String data = leitor.nextLine();
-		        	        System.out.println(data);
-		        	      }
-		        	      leitor.close();
-		        	    } catch (FileNotFoundException excecao) {
-		        	      System.out.println("Erro ao abrir o arquivo");
-		        	      excecao.printStackTrace();
-		        	    }
-		        }
+		    	//adicionar funçao de exportar midi
+		        //ExportaMIDI();
 		    }
-		    
 		});
-		
-		
-		
 		
 		TextoMusica.setToolTipText("Digite seu texto aqui...");
 		TextoMusica.setBackground(new Color(192, 192, 192));
@@ -141,13 +131,13 @@ public class TelaPrincipal implements MouseListener {
 		        
 		        if(abriu == JFileChooser.APPROVE_OPTION)
 		        {
-		        	String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
+		        	
 		        	try {
+		        		  String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
 		        	      File arquivo = new File(caminho);
 		        	      Scanner leitor = new Scanner(arquivo);
 		        	      while (leitor.hasNextLine()) {
 		        	        String data = leitor.nextLine();
-		        	        System.out.println(data);
 		        	        TextoMusica.setText(data);
 		        	      }
 		        	      leitor.close();
@@ -173,7 +163,7 @@ public class TelaPrincipal implements MouseListener {
 		JLabel IniciaMusica = new JLabel("");
 		IniciaMusica.setIcon(new ImageIcon(".\\TelasPlayer\\IconPlay.png"));
 		IniciaMusica.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		IniciaMusica.setBounds(265, 497, 137, 123);
+		IniciaMusica.setBounds(285, 540, 137, 123);
 		frame.getContentPane().add(IniciaMusica);
 		
 		JComboBox comboBox = new JComboBox();
