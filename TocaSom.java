@@ -14,18 +14,25 @@ public class TocaSom {
         texto = "";
     }
 
+    public static void main(String[] args){
+        TocaSom toca = new TocaSom();
+
+        toca.SetText("CDEF0aFF0a?CDCD0aDD4aCGFE0aEE0aCDEF0aFF");
+        toca.PlayMusic();
+    }
+
     public void PlayMusic(){
         id.setTexto(texto);
-        Pattern music = new Pattern(id.geraStringMusica());
-        player.play(music);
+        player.play(id.geraStringMusica());
     }
 
     public void SetText(String texto){
         this.texto = texto;
     }
 
-    public static void ExportaMIDI(Pattern music){
-        File arquivoMIDI = new File("output.mid");
+    public void ExportaMIDI(String nome){
+        Pattern music = new Pattern(id.geraStringMusica());
+        File arquivoMIDI = new File(nome+"_output.mid");
         try {
             MidiFileManager.savePatternToMidi(music, arquivoMIDI);
         } catch (IOException e) {
