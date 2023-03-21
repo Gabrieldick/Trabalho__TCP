@@ -1,8 +1,6 @@
 package Telas;
 
-import org.jfugue.midi.MidiFileManager;
-import org.jfugue.pattern.Pattern;
-import org.jfugue.player.Player;
+
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Func_musica.identificaCaractere;
+import Func_musica.TocaSom;
 
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
@@ -29,6 +27,9 @@ public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
 	private JTextPane TextoMusica = new JTextPane();
+	private String caminho;
+	private TocaSom musica = new TocaSom(); 
+	private String nomeArquivo;
 	
 	final JFileChooser fc = new JFileChooser();
 	/**
@@ -108,8 +109,14 @@ public class TelaPrincipal implements MouseListener {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	//adicionar funçao de exportar midi
-		        //ExportaMIDI();
+		    	musica.SetText(TextoMusica.getText());
+		    	
+		    	try {
+					musica.ExportaMIDI(nomeArquivo);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		});
 		
@@ -133,7 +140,8 @@ public class TelaPrincipal implements MouseListener {
 		        {
 		        	
 		        	try {
-		        		  String caminho = selecionaArq.getSelectedFile().getAbsolutePath();
+		        		  caminho = selecionaArq.getSelectedFile().getAbsolutePath();
+		        		  nomeArquivo = selecionaArq.getSelectedFile().getName();
 		        	      File arquivo = new File(caminho);
 		        	      Scanner leitor = new Scanner(arquivo);
 		        	      while (leitor.hasNextLine()) {
@@ -180,12 +188,8 @@ public class TelaPrincipal implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		identificaCaractere id = new identificaCaractere(TextoMusica.getText());
-		id.setMusica(id.geraStringMusica());
-		Pattern music = new Pattern(id.getMusica());
-		Player player = new Player();
-		player.play(music);
-		this.frame.dispose();
+		musica.SetText(TextoMusica.getText());
+		musica.PlayMusic();
 	}
 
 	@Override
@@ -220,12 +224,4 @@ public class TelaPrincipal implements MouseListener {
 		this.frame = frame;
 	}
 	
-	private static void ExportaMIDI(Pattern music, String nome){
-        File arquivoMIDI = new File(nome+"_output.mid");
-        try {
-            MidiFileManager.savePatternToMidi(music, arquivoMIDI);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

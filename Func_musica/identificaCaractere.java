@@ -1,4 +1,5 @@
 package Func_musica;
+
 public class identificaCaractere {
     //CONSTANTES DO TOCADOR
     private static final int InstrumentoAgogo = 114;
@@ -19,7 +20,7 @@ public class identificaCaractere {
     private String musica;  
 
     //CONSTRUTOR
-    public identificaCaractere(String texto) {
+    public identificaCaractere() {
         //INTEIROS
         i = 0;
         //CHAR
@@ -27,7 +28,7 @@ public class identificaCaractere {
         //STRING
         LastNote = "";
         //INICIALIZAÇÃO DO TEXTO
-        this.texto = texto;
+        texto = "";
         //INICIALIZAÇÃO DA MUSICA
         musica = "";
     }
@@ -257,5 +258,9 @@ public class identificaCaractere {
 
     public String getMusica(){
         return this.musica;
+    }
+
+    public void setTexto(String texto){
+        this.texto = texto;
     }
 }

@@ -1,44 +1,44 @@
 package Func_musica;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import org.jfugue.midi.MidiFileManager;
 
 public class TocaSom {
-    
-    public static void main(String[] args) throws FileNotFoundException{
-        Leitura ler = new Leitura();
-        Player player = new Player();
-        
-        ler.setFileName();
-        ler.setDirectory();
-        ler.setDados(ler.getDirectory(),ler.getFileName());
-        System.out.println(ler.getDados());
-        identificaCaractere ID = new identificaCaractere(ler.getDados());
-        ID.setMusica(ID.geraStringMusica());
-        System.out.println(ID.getMusica());
-        Pattern music = new Pattern(ID.getMusica());
-        ExportaMIDI(music, ler.getFileRawName());
-        player.play(music);
 
-        //identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD0aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CD EFFF FFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD!aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCDpaDDOaCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0a?CDCD0aDD4aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD;aCGFE0aEE0aCDEF0aFF");
-    	//identificaCaractere ID = new identificaCaractere("CDEF0aFF0aCDCD0aDD,aCGFE0aEE0aCDEF0aFF");
+    private String texto;
+    private identificaCaractere id = new identificaCaractere();
+    private Player player = new Player();
 
+    public TocaSom(){
+        texto = "";
     }
-    private static void ExportaMIDI(Pattern music, String nome){
-        File arquivoMIDI = new File(nome+"_output.mid");
+
+    public void PlayMusic(){
+        id.setTexto(texto);
+        player.play(id.geraStringMusica());
+    }
+
+    public void SetText(String texto){
+        this.texto = texto;
+    }
+
+    public void ExportaMIDI(String nome) throws IOException{
+    	nome = getFileRawName(nome);
+        id.setTexto(texto);
+        Pattern music = new Pattern(id.geraStringMusica());
+        FileOutputStream arquivoMIDI = new FileOutputStream(nome+"_output.mid");
         try {
             MidiFileManager.savePatternToMidi(music, arquivoMIDI);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        arquivoMIDI.close();
+    }
+    private String getFileRawName(String nomeArquivo){
+    	nomeArquivo = nomeArquivo.substring(0,nomeArquivo.indexOf("."));
+        return nomeArquivo;
     }
 }
