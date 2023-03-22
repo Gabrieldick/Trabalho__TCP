@@ -9,7 +9,7 @@ import org.jfugue.midi.MidiFileManager;
 public class TocaSom {
 
     private String texto;
-    private identificaCaractere id = new identificaCaractere();
+    private IdentificaCaractere id = new IdentificaCaractere();
     private Player player = new Player();
 
     public TocaSom(){
@@ -17,8 +17,7 @@ public class TocaSom {
     }
 
     public void PlayMusic(){
-        id.setTexto(texto);
-        player.play(id.geraStringMusica());
+        player.play(id.GeraStringMusica(texto));
     }
 
     public void SetText(String texto){
@@ -26,9 +25,13 @@ public class TocaSom {
     }
 
     public void ExportaMIDI(String nome) throws IOException{
-    	nome = getFileRawName(nome);
-        id.setTexto(texto);
-        Pattern music = new Pattern(id.geraStringMusica());
+    	if (nome == null) {
+			nome = "";
+		}
+    	else {
+    		nome = getFileRawName(nome);
+    	}
+        Pattern music = new Pattern(id.GeraStringMusica(texto));
         FileOutputStream arquivoMIDI = new FileOutputStream(nome+"_output.mid");
         try {
             MidiFileManager.savePatternToMidi(music, arquivoMIDI);
