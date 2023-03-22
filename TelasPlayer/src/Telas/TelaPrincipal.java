@@ -18,11 +18,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import Func_musica.TocaSom;
 
 import javax.swing.JTextPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel; 	
+
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
@@ -54,6 +51,8 @@ public class TelaPrincipal implements MouseListener {
 	public TelaPrincipal() {
 		initialize();
 	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -195,5 +194,4 @@ public class TelaPrincipal implements MouseListener {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
 }
