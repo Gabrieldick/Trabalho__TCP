@@ -17,13 +17,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Func_musica.TocaSom;
 
-import javax.swing.JTextPane;
+import javax.swing.JEditorPane;
 import javax.swing.ImageIcon;
 
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
-	private JTextPane TextoMusica = new JTextPane();
+	private JEditorPane TextoMusica = new JEditorPane();
 	private String caminho;
 	private TocaSom musica = new TocaSom(); 
 	private String nomeArquivo;
