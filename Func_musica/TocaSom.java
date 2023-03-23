@@ -25,12 +25,7 @@ public class TocaSom {
     }
 
     public void ExportaMIDI(String nome) throws IOException{
-    	if (nome == null) {
-			nome = "";
-		}
-    	else {
-    		nome = getFileRawName(nome);
-    	}
+    	
         Pattern music = new Pattern(id.GeraStringMusica(texto));
         FileOutputStream arquivoMIDI = new FileOutputStream(nome+"_output.mid");
         try {
@@ -40,8 +35,5 @@ public class TocaSom {
         }
         arquivoMIDI.close();
     }
-    private String getFileRawName(String nomeArquivo){
-    	nomeArquivo = nomeArquivo.substring(0,nomeArquivo.indexOf("."));
-        return nomeArquivo;
-    }
+    
 }

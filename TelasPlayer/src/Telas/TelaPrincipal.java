@@ -2,6 +2,7 @@ package Telas;
 
 
 import java.awt.EventQueue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,19 +15,18 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import Func_musica.TocaSom;
-
 import javax.swing.JEditorPane;
 import javax.swing.ImageIcon;
+
 
 public class TelaPrincipal implements MouseListener {
 
 	private JFrame frame;
+	private JEditorPane nomeOutput = new JEditorPane();
 	private JEditorPane TextoMusica = new JEditorPane();
 	private String caminho;
 	private TocaSom musica = new TocaSom(); 
-	private String nomeArquivo;
 	
 	final JFileChooser fc = new JFileChooser();
 	/**
@@ -51,8 +51,6 @@ public class TelaPrincipal implements MouseListener {
 	public TelaPrincipal() {
 		initialize();
 	}
-	
-	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -100,7 +98,7 @@ public class TelaPrincipal implements MouseListener {
 		        	
 		        	try {
 		        		  caminho = selecionaArq.getSelectedFile().getAbsolutePath();
-		        		  nomeArquivo = selecionaArq.getSelectedFile().getName();
+		        		  nomeOutput.setText(getFileRawName(selecionaArq.getSelectedFile().getName()));
 		        	      File arquivo = new File(caminho);
 		        	      Scanner leitor = new Scanner(arquivo);
 		        	      while (leitor.hasNextLine()) {
@@ -136,7 +134,7 @@ public class TelaPrincipal implements MouseListener {
 		    	musica.SetText(TextoMusica.getText());
 		    	
 		    	try {
-					musica.ExportaMIDI(nomeArquivo);
+					musica.ExportaMIDI(nomeOutput.getText());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -149,6 +147,17 @@ public class TelaPrincipal implements MouseListener {
 		IniciaMusica.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		IniciaMusica.setBounds(217, 492, 137, 123);
 		frame.getContentPane().add(IniciaMusica);
+		nomeOutput.setBackground(new Color(192, 192, 192));
+		
+		
+		nomeOutput.setBounds(330, 442, 165, 21);
+		frame.getContentPane().add(nomeOutput);
+		
+		JLabel lblNomeOutput = new JLabel("Nome do Arquivo de Saída");
+		lblNomeOutput.setForeground(Color.WHITE);
+		lblNomeOutput.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNomeOutput.setBounds(330, 405, 169, 27);
+		frame.getContentPane().add(lblNomeOutput);
 		
 		frame.setBounds(100, 100, 570, 667);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -156,7 +165,10 @@ public class TelaPrincipal implements MouseListener {
 		IniciaMusica.addMouseListener(this);
 		
 	}
-
+	private String getFileRawName(String nomeArquivo){
+    	nomeArquivo = nomeArquivo.substring(0,nomeArquivo.indexOf("."));
+        return nomeArquivo;
+    }
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		musica.SetText(TextoMusica.getText());
