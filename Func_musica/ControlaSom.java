@@ -2,22 +2,26 @@ package Func_musica;
 public class ControlaSom {
     private static final int numIntstrumentos = 127;
     private static final int maxVolume = 127;
-    private static final int minVolume = 0;
-    private static final int volumePadrao = 40;
+    private static final int volumePadrao = 31;
     private static final int ID_Instrumento_Padrao = 0;
     private static final int OitavaInicial = 5;
     private static final int maxOitavas = 9;
     
     private int ID_Instrumento;
     private int volume;
-    private int OitavaAtual;
+    private int oitavaAtual;
     
     public ControlaSom() {
         ID_Instrumento = ID_Instrumento_Padrao;
         volume = volumePadrao;
-        OitavaAtual = OitavaInicial;
+        oitavaAtual = OitavaInicial;
     }
-
+    public int getVolume() {
+		return volume;
+	}
+    public void setVolume(int volume) {
+		this.volume = volume;
+	}
     //METODO PARA VERIFICAR O VOLUME
     public void DobraVolume(){
         volume *= 2;
@@ -25,10 +29,6 @@ public class ControlaSom {
         if(volume > maxVolume){
             volume = volumePadrao;
         }
-        else if(volume < minVolume){
-            volume = volumePadrao;
-        }
-        return;
     }
     
   //METODO PARA RETORNAR STRING COM VOLUME
@@ -38,21 +38,18 @@ public class ControlaSom {
     }
     
   //METODO PARA RETORNAR STRING COM VOLUME
-    public void volumeToVolumePadrao(){
+    public void VolumeToVolumePadrao(){
     	volume = volumePadrao;
-        return;
     }
     
     public void VerificaInstrumento(){
         if(ID_Instrumento > numIntstrumentos){
             ID_Instrumento = ID_Instrumento_Padrao;
         }
-        return;
     }
     
     public void AlteraInstrumento(int ID_Instrumento){
         this.ID_Instrumento = ID_Instrumento;
-        return;
     }
     
     public int getID_Instrumento() {
@@ -68,21 +65,22 @@ public class ControlaSom {
     public void setInstrumentoPadrao(){
         //MONTA STRING PARA CONCATENAR
         ID_Instrumento = ID_Instrumento_Padrao;
-        return;
     }
     
     public int getOitavaAtual() {
-    	return OitavaAtual;
+    	return oitavaAtual;
     }
     
-  //METOTO QUE ALTERA AS OITAVAS
-    public int AlteraOitava(){
-        if((OitavaAtual+1) > maxOitavas){
-            OitavaAtual = OitavaInicial;
+  //MÉTODO QUE ALTERA AS OITAVAS
+    public void IncrementaOitava(){
+        if((oitavaAtual+1) > maxOitavas){
+            oitavaAtual = OitavaInicial;
         }
         else{
-            OitavaAtual++;
+            oitavaAtual++;
         }
-        return OitavaAtual;
     }   
+    public void OitavaToPadrao(){
+        oitavaAtual = OitavaInicial;
+    }
 }

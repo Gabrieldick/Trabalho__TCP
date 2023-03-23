@@ -20,7 +20,8 @@ public class IdentificaCaractere {
     //FUNCAO QUE INICIALIZA OS PADROES DA MUSICA
     private String InicializaMusica(){
         String musica = "";
-        configSom.volumeToVolumePadrao();
+        configSom.OitavaToPadrao();
+        configSom.VolumeToVolumePadrao();
         musica = musica.concat(configSom.VolumeToString());
         configSom.setInstrumentoPadrao();
         musica = musica.concat(configSom.InstrumentoToString());
@@ -183,7 +184,7 @@ public class IdentificaCaractere {
                         break;
                     //GERA NOTA ALEATORIA
                     case '?':
-                        configSom.AlteraOitava();
+                        configSom.IncrementaOitava();
                         break;
                     //TROCA PARA INSTRUMENTO GERADO ALEATORIAMENTE
                     case '\n':
